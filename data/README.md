@@ -16,6 +16,33 @@ data/spatial/final.dbf
 data/spatial/final.cpg
 ```
 
+For release-gate reproduction, the derived panel must be the final locked panel:
+
+```text
+SHA-1   8053d12a14e0ae586d2203f731567ef7669eb14e
+SHA-256 2461222cd6068d1e3032e36f972aee9bdaa8ac5f0ad6a1c46c5d43ca99b3937b
+```
+
+Verify after placing the panel:
+
+```bash
+shasum data/derived/panel_inla_6var_contiguity.csv
+shasum -a 256 data/derived/panel_inla_6var_contiguity.csv
+```
+
+The archived reference fit `outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds`
+(tracked in this repository) must match:
+
+```text
+SHA-1   07ae2423bf38ad17ce697a98ad0d4dbf9730d0c2
+```
+
+It was re-saved with xz compression (lossless); internal values unchanged. Verify:
+
+```bash
+shasum outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds
+```
+
 The panel must include:
 
 - `region`

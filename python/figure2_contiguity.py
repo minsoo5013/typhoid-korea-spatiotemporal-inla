@@ -15,7 +15,7 @@ Outputs:
   outputs/generated/figures/Figure2_contiguity_M6.{png,tif}
   outputs/generated/figures/Figure2_validation.csv
 
-Ported from 논문화/TRSTMH/figure2/Figure2_contiguity_M6_v41_layout_python_northarrow.py.
+Ported from the internal manuscript Figure 2 rendering script.
 """
 from __future__ import annotations
 

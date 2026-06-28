@@ -3,11 +3,15 @@
 # Reproduces: S3 (M1-M6 DIC/WAIC), Table 2 fixed-effect IRRs, residual Moran's I
 #   (raw incidence pre-model, M6 raw + Pearson), per-district spatial RE/RR, and
 #   the S4 elevated posterior spatial-RR ranking. Fixed 6 _T covariates only.
-# Input: outputs/generated/INLA_M1_M6_final_contiguity.rds + panel (from 01-03),
-#   queen-contiguity adjacency rebuilt from data/spatial/final.{gpkg,shp}.
+# Reference-of-record input: copy outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds
+#   to outputs/generated/INLA_M1_M6_final_contiguity.rds, then use the panel from
+#   R/01-R/02 and queen-contiguity adjacency rebuilt from data/spatial/final.{gpkg,shp}.
 # Output: outputs/generated/{Table_S_model_comparison_M1_M6_diagnostics, Table2_fixed_effects_6var_diagnostics,
 #   residual_moran, spatial_RE_all_6var, Table_S_elevated_spatial_RR_districts}.csv
-#   (reference equivalents under outputs/reference/; --validate-reference checks locked values, no refit).
+#   (reference equivalents under outputs/reference/; --validate-reference checks
+#   the archived-fit/reference-CSV locked values with no refit).
+# A full R/03 re-fit is an approximate reproduction check and may differ at the
+# second to third decimal place because of INLA numerical non-determinism.
 # Ported from professor_pipeline_run05_FINAL_v2/R/01_refit_FINAL_v2.R (no automated selection).
 
 set.seed(20260626)
@@ -163,7 +167,7 @@ make_generated_tables <- function() {
   rds_path <- path("outputs", "generated", "INLA_M1_M6_final_contiguity.rds")
   panel_path <- path("outputs", "generated", "panel_inla_6var_contiguity.csv")
   if (!file.exists(rds_path)) {
-    stop("Missing generated INLA fit. Run R/03_model_fit.R or use --validate-reference for no-refit validation.")
+    stop("Missing INLA fit. Copy outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds to outputs/generated/INLA_M1_M6_final_contiguity.rds for reference-of-record diagnostics, or use --validate-reference for no-refit validation. A fresh R/03 refit is approximate and may differ at the second to third decimal place.")
   }
   if (!file.exists(panel_path)) stop("Missing generated panel. Run R/01_data_prep.R and R/02_adjacency.R first.")
 

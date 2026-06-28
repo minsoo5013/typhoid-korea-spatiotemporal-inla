@@ -1,0 +1,27 @@
+{
+  "title": "Analysis code for: Long-term spatiotemporal distribution and area-level factors associated with typhoid fever in South Korea: a nationwide district-level ecological study, 2011-2024",
+  "upload_type": "software",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Lee, Geonsang",
+      "orcid": "0009-0006-5105-6401",
+      "affiliation": "Hongik University"
+    },
+    {
+      "name": "Kim, Seongdae",
+      "affiliation": "Hongik University"
+    }
+  ],
+  "keywords": [
+    "Bayesian spatiotemporal model",
+    "Besag-York-Mollie",
+    "INLA",
+    "queen contiguity",
+    "South Korea",
+    "typhoid fever"
+  ],
+  "license": "mit",
+  "language": "eng",
+  "related_identifiers": []
+}

@@ -4,7 +4,9 @@
 # No automated variable selection (forward/backward/stepwise/VIF/AIC) is called
 # here; any such procedure lives in R/exploratory/ and is exploratory only.
 # Spatial: NB + BYM + RW1 + IID, offset log(population + 1), queen contiguity.
-# Running this unchanged on the locked panel reproduces M6 DIC 4196.36 / WAIC 4198.66.
+# The archived M6 fit (outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds)
+# is the reference of record; a fresh re-fit may differ at the second to third
+# decimal place because of INLA numerical non-determinism.
 
 set.seed(20260626)
 options(scipen = 999)

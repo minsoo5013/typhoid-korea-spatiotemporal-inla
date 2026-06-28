@@ -68,14 +68,14 @@ clean_region <- function(x) {
 }
 
 candidate_category <- function(v) {
-  if (grepl("상수도|하수도|수도|식품안정", v)) return("수질/하수")
-  if (grepl("손씻|칫솔|위생", v)) return("위생/건강행태")
-  if (grepl("인구밀도|도시지역|도시", v)) return("토지이용/인구도시화")
-  if (grepl("외국인|전입|전출|이동|통근|대중교통|다문화|순이동", v)) return("인구이동/도시화")
-  if (grepl("의료|의사|병상|보건소|응급실|요양기관", v)) return("의료접근")
-  if (grepl("재정|복지|사업체|종사자|고용|실업|수급", v)) return("사회경제")
-  if (grepl("고령|노인|성비|1인가구|독거", v)) return("취약성/인구구조")
-  "기타"
+  if (grepl("상수도|하수도|수도|식품안정", v)) return("water quality / sewerage")
+  if (grepl("손씻|칫솔|위생", v)) return("hygiene / health behaviour")
+  if (grepl("인구밀도|도시지역|도시", v)) return("land use / urbanisation")
+  if (grepl("외국인|전입|전출|이동|통근|대중교통|다문화|순이동", v)) return("mobility / urbanisation")
+  if (grepl("의료|의사|병상|보건소|응급실|요양기관", v)) return("healthcare access")
+  if (grepl("재정|복지|사업체|종사자|고용|실업|수급", v)) return("socioeconomic")
+  if (grepl("고령|노인|성비|1인가구|독거", v)) return("vulnerability / population structure")
+  "other"
 }
 
 assign_theory_dir <- function(v) {
@@ -129,7 +129,7 @@ read_inputs <- function() {
 read_spatial <- function() {
   candidates <- c(
     project_p("reproducible_code_package", "data", "spatial", "final.gpkg"),
-    project_p("논문화", "manuscript_input_files", "final.gpkg"),
+    # Historical exploratory path omitted from the public release.
     project_p("reproducible_code_package", "data", "spatial", "final.shp")
   )
   hit <- candidates[file.exists(candidates)][1]
@@ -682,9 +682,9 @@ run_pipeline <- function() {
   summary_text <- c(
     "# Professor-Style Typhoid Variable Selection Summary",
     "",
-    "## 분석 성격",
+    "## Analysis Scope",
     "",
-    "이 분석은 기존 6변수 고정 또는 locked manuscript 값 재현이 아니라, 교수님 A형간염/EHEC 방식에 맞춘 exploratory 변수·form 탐색이다. 결과는 최종 논문모델 확정이 아니라 전략팀 검토용이다.",
+    "This exploratory analysis searches candidate variables and functional forms in the style of earlier hepatitis A/EHEC workflows. It is not the fixed six-covariate manuscript model and is not used to reproduce the locked manuscript values. Results are retained only for audit and strategy review.",
     "",
     "## Parameters",
     "",
@@ -708,10 +708,10 @@ run_pipeline <- function() {
     "",
     comp_lines,
     "",
-    "## 결론",
+    "## Conclusion",
     "",
-    paste0("교수님식 exploratory 절차에서는 ", length(final_vars), "개 변수가 forward/VIF 이후 남았고, INLA 구조 비교에서는 ", inla$selected_model, "가 선택 규칙에 따라 선택되었다."),
-    "이 결과는 자동 탐색 결과이므로 공개 최종모델 근거로 그대로 쓰지 않는다. 이후 전략팀이 변수와 form을 확정하면, forward/backward/stepwise를 제거한 pre-specified 재현 스크립트로 별도 고정해야 한다."
+    paste0("The exploratory forward/VIF procedure retained ", length(final_vars), " variables, and the INLA structure comparison selected ", inla$selected_model, " according to the exploratory selection rule."),
+    "Because these results come from automated exploratory screening, they are not used as the basis for the public final manuscript model. The final release uses a separate pre-specified reproduction script with no forward, backward, or stepwise selection."
   )
   writeLines(enc2utf8(summary_text), p("outputs", "summary", "SELECTION_SUMMARY.md"), useBytes = TRUE)
   message("Professor-style typhoid selection complete.")

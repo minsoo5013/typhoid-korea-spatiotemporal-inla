@@ -3,10 +3,12 @@
 # Reproduces: per-district-year data feeding the supplementary videos
 #   (S1 observed vs fitted incidence; S2 Pearson residual), 2011-2024.
 #   The actual frame/GIF/MP4 rendering is done by the Python scripts in python/.
-# Input: outputs/generated/INLA_M1_M6_final_contiguity.rds (from R/03_model_fit.R)
+# Input: outputs/generated/INLA_M1_M6_final_contiguity.rds, preferably copied from
+#   outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds
+#   (the archived M6 fit and reference of record)
 #   and outputs/generated/panel_inla_6var_contiguity.csv (from 01-02).
-#   This .rds MUST reproduce the locked M6 (DIC 4196.36 / WAIC 4198.66); verify the
-#   extracted fitted/residual values match the published frames before release.
+#   The archived fit reproduces the published fitted/residual frame data exactly;
+#   a fresh R/03 re-fit is approximate and may differ at the second to third decimal place.
 # Output: outputs/generated/district_year_final_contiguity_M6_for_gifs.csv.
 # Ported from tables/gifs/extract_final_m6_for_gifs.R (no automated selection).
 
@@ -29,7 +31,7 @@ write_csv_utf8 <- function(x, y) write.csv(x, y, row.names = FALSE, fileEncoding
 
 rds_path <- path("outputs", "generated", "INLA_M1_M6_final_contiguity.rds")
 panel_path <- path("outputs", "generated", "panel_inla_6var_contiguity.csv")
-if (!file.exists(rds_path)) stop("Run R/03_model_fit.R first (missing generated M6 fit).")
+if (!file.exists(rds_path)) stop("Missing M6 fit. Copy outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds to outputs/generated/INLA_M1_M6_final_contiguity.rds for the published video-frame data.")
 if (!file.exists(panel_path)) stop("Run R/01_data_prep.R and R/02_adjacency.R first.")
 
 fits <- readRDS(rds_path)

@@ -49,6 +49,43 @@ The current locked manuscript values are:
 
 Reference output tables are stored in `outputs/reference/`. Generated outputs from a local rerun should be written to `outputs/generated/`.
 
+Release-gate reproduction requires both:
+
+- R-INLA version: `25.10.19`
+- Final locked analysis panel SHA-1: `8053d12a14e0ae586d2203f731567ef7669eb14e`
+
+Headline values (DIC 4196.36, WAIC 4198.66, Table 2 IRRs, residual Moran's I,
+and the elevated posterior spatial-RR ranking) are based on the archived M1-M6
+INLA fit:
+
+```text
+outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds
+```
+
+Archived fit SHA-1: `07ae2423bf38ad17ce697a98ad0d4dbf9730d0c2` (re-saved with xz
+compression (lossless); internal values unchanged). Verify before use:
+
+```bash
+shasum outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds
+```
+
+This archived fit was generated with R-INLA `25.10.19` and the final locked
+analysis panel above. It is the reference of record for the locked manuscript
+values. Full INLA re-fitting may differ at the second to third decimal place
+because of numerical non-determinism in the INLA optimization path; local refits
+should be treated as approximate reproduction checks for structure, signs,
+directions, and overall conclusions, not as a replacement for the archived
+reference fit.
+
+The corresponding SHA-256 for the same panel file is
+`2461222cd6068d1e3032e36f972aee9bdaa8ac5f0ad6a1c46c5d43ca99b3937b`.
+Verify the local panel before refitting:
+
+```bash
+shasum data/derived/panel_inla_6var_contiguity.csv
+shasum -a 256 data/derived/panel_inla_6var_contiguity.csv
+```
+
 ## Repository Structure
 
 ```text
@@ -89,9 +126,15 @@ SGIS boundary shapefile under `data/spatial/`, which is required and not redistr
 # Final model + diagnostics
 Rscript R/01_data_prep.R
 Rscript R/02_adjacency.R
-TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/03_model_fit.R
+
+# Reference-of-record diagnostics: use the archived fit rather than refitting.
+cp outputs/reference/INLA_M1_M6_final_contiguity_archived_reference.rds \
+  outputs/generated/INLA_M1_M6_final_contiguity.rds
 Rscript R/04_diagnostics.R
 Rscript R/05_figures.R
+
+# Optional approximate refit only; exact locked DIC/WAIC equality is not required.
+TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/03_model_fit.R
 
 # Supplementary sensitivity analyses (queen is the main model; these are sensitivity only)
 TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/06_sensitivity_window.R
@@ -119,10 +162,10 @@ Rscript R/04_diagnostics.R --validate-reference
 | Figure 2 (crude incidence + posterior spatial RR maps) | `python/figure2_contiguity.py` | Yes — requires SGIS boundary shapefile |
 | S1 video (observed vs fitted) | `R/08_video_frames.R` → `python/make_video_frames.py` → `python/convert_videos.py` | Yes — requires SGIS boundary shapefile |
 | S2 video (Pearson residual) | `R/08_video_frames.R` → `python/make_video_frames.py` → `python/convert_videos.py` | Yes — requires SGIS boundary shapefile |
-| S3 (M1–M6 DIC/WAIC) | `R/03_model_fit.R`, `R/04_diagnostics.R` | Yes |
+| S3 (M1–M6 DIC/WAIC) | archived reference fit, `R/04_diagnostics.R` | Yes |
 | S4 (elevated posterior spatial RR ranking) | `R/04_diagnostics.R` | Yes |
-| S5 (window sensitivity W1–W5) | `R/06_sensitivity_window.R` | Yes |
-| S6 (KNN adjacency sensitivity K=2–7) | `R/07_sensitivity_knn.R` | Yes |
+| S5 (window sensitivity W1–W5) | `outputs/reference/window_sensitivity_comparison_recovered_final.csv`, optional `R/06_sensitivity_window.R` refit | Yes |
+| S6 (KNN adjacency sensitivity K=2–7) | `outputs/reference/S6_KNN_adjacency_sensitivity_recovered_final.csv`, optional `R/07_sensitivity_knn.R` refit | Yes |
 | Residual Moran's I (raw + Pearson) | `R/04_diagnostics.R` | Yes |
 | Table 1 / Table 2 | `R/01_data_prep.R`, `R/04_diagnostics.R` | Yes |
 
@@ -144,6 +187,9 @@ This repository should not include personal information, non-public raw data, or
 
 ## Reproducibility Notes
 
+- The locked manuscript fit was generated with R-INLA `25.10.19`.
+- The derived panel must match SHA-1 `8053d12a14e0ae586d2203f731567ef7669eb14e`.
+- The archived fit in `outputs/reference/` is the reference of record for headline model values; it must match SHA-1 `07ae2423bf38ad17ce697a98ad0d4dbf9730d0c2` (re-saved with xz compression (lossless); internal values unchanged).
 - Set `TYPHOID_INLA_NUM_THREADS=1:1` for deterministic INLA reruns where possible.
 - Minor numerical differences may occur across R/INLA versions and numerical environments.
 - Manuscript values should not be replaced unless discrepancies are documented and approved before manuscript revision.

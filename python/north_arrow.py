@@ -59,16 +59,3 @@ def add_north_arrow(ax, x=0.92, y=0.90, size=0.10, color="#1a1a1a", lw=0.8):
         fontweight="bold", color=color,
         zorder=11, clip_on=False,
     )
-
-
-if __name__ == "__main__":
-    # quick self-test render
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(4, 5))
-    ax.set_xlim(0, 1); ax.set_ylim(0, 1)
-    ax.set_axis_off()
-    ax.add_patch(mpatches.Rectangle((0, 0), 1, 1, fc="#eef2f4", ec="none"))
-    add_north_arrow(ax, x=0.85, y=0.85, size=0.12)
-    add_north_arrow(ax, x=0.5, y=0.55, size=0.08)   # smaller variant
-    fig.savefig("north_arrow_test.png", dpi=200, bbox_inches="tight")
-    print("saved north_arrow_test.png")

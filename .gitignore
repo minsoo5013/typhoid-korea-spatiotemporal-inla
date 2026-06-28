@@ -8,6 +8,7 @@ data/derived/
 data/spatial/
 outputs/generated/
 *.rds
+!outputs/reference/*.rds
 *.RData
 *.log
 *.tmp
