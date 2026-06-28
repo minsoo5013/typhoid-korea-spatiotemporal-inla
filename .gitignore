@@ -5,6 +5,7 @@
 renv/library/
 data/raw/
 data/derived/
+data/spatial/
 outputs/generated/
 *.rds
 *.RData
@@ -15,3 +16,8 @@ outputs/generated/
 *.png
 *.gif
 *.mp4
+*.inla
+# Python
+__pycache__/
+*.pyc
+.venv/

@@ -61,10 +61,20 @@ repo/
 ├─ R/
 │  ├─ 01_data_prep.R
 │  ├─ 02_adjacency.R
-│  ├─ 03_model_fit.R
-│  ├─ 04_diagnostics.R
-│  ├─ 05_figures.R
-│  └─ exploratory/                 # variable selection — exploratory only, not used for final analysis
+│  ├─ 03_model_fit.R                # final model (queen contiguity)
+│  ├─ 04_diagnostics.R              # S3, Table 2, residual Moran, S4 elevated
+│  ├─ 05_figures.R                  # Figure 1 (annual cases)
+│  ├─ 06_sensitivity_window.R       # S5 window sensitivity (supplementary)
+│  ├─ 07_sensitivity_knn.R          # S6 KNN adjacency sensitivity (supplementary)
+│  ├─ 08_video_frames.R             # district-year data for the videos
+│  ├─ _sensitivity_common.R         # shared helpers for 06–07
+│  └─ exploratory/                  # variable selection — exploratory only, not used for final analysis
+├─ python/                          # Figure 2 + supplementary video renderers (matplotlib/geopandas)
+│  ├─ figure2_contiguity.py
+│  ├─ make_video_frames.py
+│  ├─ convert_videos.py
+│  ├─ north_arrow.py
+│  └─ requirements.txt
 └─ outputs/
    ├─ reference/
    └─ generated/
@@ -72,14 +82,27 @@ repo/
 
 ## How to Run
 
-Place permitted input files under `data/` according to `data/README.md`.
+Place permitted input files under `data/` according to `data/README.md` (including the
+SGIS boundary shapefile under `data/spatial/`, which is required and not redistributed here).
 
 ```bash
+# Final model + diagnostics
 Rscript R/01_data_prep.R
 Rscript R/02_adjacency.R
 TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/03_model_fit.R
 Rscript R/04_diagnostics.R
 Rscript R/05_figures.R
+
+# Supplementary sensitivity analyses (queen is the main model; these are sensitivity only)
+TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/06_sensitivity_window.R
+TYPHOID_INLA_NUM_THREADS=1:1 Rscript R/07_sensitivity_knn.R
+
+# Figure 2 + supplementary videos (Python; needs the SGIS boundary)
+Rscript R/08_video_frames.R
+pip install -r python/requirements.txt
+python python/figure2_contiguity.py
+python python/make_video_frames.py
+python python/convert_videos.py
 ```
 
 `R/04_diagnostics.R` can also validate the reference locked manuscript values without refitting:
@@ -88,13 +111,32 @@ Rscript R/05_figures.R
 Rscript R/04_diagnostics.R --validate-reference
 ```
 
+## Reproduction Scope
+
+| Manuscript output | Code | Reproduced |
+|---|---|---|
+| Figure 1 (annual cases) | `R/05_figures.R` | Yes |
+| Figure 2 (crude incidence + posterior spatial RR maps) | `python/figure2_contiguity.py` | Yes — requires SGIS boundary shapefile |
+| S1 video (observed vs fitted) | `R/08_video_frames.R` → `python/make_video_frames.py` → `python/convert_videos.py` | Yes — requires SGIS boundary shapefile |
+| S2 video (Pearson residual) | `R/08_video_frames.R` → `python/make_video_frames.py` → `python/convert_videos.py` | Yes — requires SGIS boundary shapefile |
+| S3 (M1–M6 DIC/WAIC) | `R/03_model_fit.R`, `R/04_diagnostics.R` | Yes |
+| S4 (elevated posterior spatial RR ranking) | `R/04_diagnostics.R` | Yes |
+| S5 (window sensitivity W1–W5) | `R/06_sensitivity_window.R` | Yes |
+| S6 (KNN adjacency sensitivity K=2–7) | `R/07_sensitivity_knn.R` | Yes |
+| Residual Moran's I (raw + Pearson) | `R/04_diagnostics.R` | Yes |
+| Table 1 / Table 2 | `R/01_data_prep.R`, `R/04_diagnostics.R` | Yes |
+
+Items 06–08 and the `python/` renderers are supplementary; the **final manuscript model
+is the full 2011–2024 queen-contiguity M6** fitted in `R/03_model_fit.R`. KNN and window
+analyses are sensitivity checks only.
+
 ## Two-Tier Analysis Policy
 
 Earlier forward, backward, stepwise, VIF-based, or AIC-driven scripts were exploratory only. They are not part of the final manuscript strategy and are not called by the public release pipeline.
 
 The public release pipeline uses a prespecified six-covariate final model selected based on epidemiological relevance, data availability, data quality, interpretability, and parsimony. Automatic variable selection is not used to define the final manuscript model.
 
-Exploratory scripts, if retained for audit purposes, must stay under `R/exploratory/` and must not be sourced by `R/01_data_prep.R` through `R/05_figures.R`.
+Exploratory scripts, if retained for audit purposes, must stay under `R/exploratory/` and must not be sourced by the release pipeline (`R/01`–`R/08` and `python/`). Every model fit in the release pipeline — including the window and KNN sensitivity analyses — uses the same fixed six covariates.
 
 ## Data Availability
 

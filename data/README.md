@@ -34,6 +34,16 @@ The six final covariates are:
 5. `고령인구비율`
 6. `성비`
 
+## Boundary shapefile (SGIS) — required for Figure 2 and the videos
+
+The district boundary files under `data/spatial/final.{gpkg,shp,shx,dbf,cpg}` come
+from **Statistics Korea SGIS** and are **required** for the queen-contiguity
+adjacency (`R/02_adjacency.R`), residual Moran's I (`R/04_diagnostics.R`), the
+sensitivity analyses (`R/06`–`R/07`), and the Python Figure 2 / supplementary-video
+renderers (`python/`). The boundary shapefile is **not redistributed here**; obtain
+it from Statistics Korea SGIS and place it under `data/spatial/` before running. The
+`data/spatial/` directory is git-ignored.
+
 ## Public Source Documentation
 
 The manuscript data were assembled from official public Korean national and local-area sources, including infectious disease surveillance, population denominators, district boundary data, KOSIS/local statistics, and area-level health and infrastructure indicators. Raw-source links and access dates should be added here before public release, subject to each source's redistribution policy.
