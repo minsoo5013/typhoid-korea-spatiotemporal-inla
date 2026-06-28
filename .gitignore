@@ -1,0 +1,17 @@
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+data/raw/
+data/derived/
+outputs/generated/
+*.rds
+*.RData
+*.log
+*.tmp
+*.tif
+*.tiff
+*.png
+*.gif
+*.mp4

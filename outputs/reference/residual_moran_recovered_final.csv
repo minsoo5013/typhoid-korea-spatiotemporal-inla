@@ -1,0 +1,6 @@
+"model","diagnostic","Moran_I","expected_I","p_value","interpretation"
+"Pre-model","raw incidence Global Moran I",0.332954604299455,-0.0045045045045045,0.000000000000000201166703441027,"Significant before adjustment"
+"M1","raw residual Moran I",0.113274484692888,-0.0045045045045045,0.00183388380809853,"Significant residual spatial autocorrelation"
+"M1","Pearson residual Moran I",0.261492070749971,-0.0045045045045045,0.0000000000511888277142745,"Significant residual spatial autocorrelation"
+"M6","raw residual Moran I",-0.018952707837925,-0.0045045045045045,0.634076051702655,"Non-significant residual spatial autocorrelation"
+"M6","Pearson residual Moran I",-0.0601531712215988,-0.0045045045045045,0.899813508555559,"Non-significant residual spatial autocorrelation"

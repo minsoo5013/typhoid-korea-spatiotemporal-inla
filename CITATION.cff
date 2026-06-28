@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the archived release."
+title: "Analysis code for: Long-term spatiotemporal distribution and area-level factors associated with typhoid fever in South Korea, 2011-2024"
+authors:
+  - family-names: Lee
+    given-names: Geonsang
+    orcid: "https://orcid.org/0009-0006-5105-6401"
+    affiliation: "Hongik University"
+  - family-names: Kim
+    given-names: Seongdae
+    affiliation: "Hongik University"
+version: v1.0.0
+license: MIT
+type: software
+keywords:
+  - typhoid fever
+  - spatiotemporal epidemiology
+  - Bayesian hierarchical model
+  - Besag-York-Mollie
+  - INLA
+  - queen contiguity
+  - South Korea
+  - ecological study
+repository-code: "https://github.com/minsoo5013/typhoid-korea-spatiotemporal-inla"
+date-released: "TO_BE_ADDED_AFTER_FINAL_APPROVAL"
+doi: "TO_BE_ADDED_AFTER_ZENODO_RELEASE"

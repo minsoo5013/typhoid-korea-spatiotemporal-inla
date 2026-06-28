@@ -1,0 +1,2 @@
+"graph_label","input_districts","retained_districts","removed_isolated_districts","retained_district_years","retained_total_cases","year_min","year_max","subgraph_count","min_neighbours","max_neighbours","graph_file"
+"W1_recovered_final",223,223,0,3122,1202,2011,2024,2,1,11,"outputs/generated/spatial_graph_contiguity_queen_snap001.inla"

@@ -1,0 +1,7 @@
+"model","specification","likelihood","spatial_random_effect","temporal_random_effect","iid_random_effect","N","total_included_cases","DIC","Delta_DIC","WAIC","selected_final_model"
+"M1","NB only","Negative binomial","None","None","None",3122,1202,4561.42652752615,365.067056984586,4564.20121920432,FALSE
+"M2","NB + ICAR","Negative binomial","ICAR","None","None",3122,1202,4387.06825274511,190.708782203543,4393.70484794862,FALSE
+"M3","NB + BYM","Negative binomial","BYM","None","None",3122,1202,4384.22447983592,187.865009294358,4391.4149117574,FALSE
+"M4","NB + BYM + IID","Negative binomial","BYM","None","IID",3122,1202,4377.12623432149,180.766763779928,4383.59254871046,FALSE
+"M5","NB + BYM + RW1","Negative binomial","BYM","RW1","None",3122,1202,4202.39282878208,6.0333582405201,4207.9517531571,FALSE
+"M6","NB + BYM + RW1 + IID","Negative binomial","BYM","RW1","IID",3122,1202,4196.35947054156,0,4198.65973723001,TRUE
