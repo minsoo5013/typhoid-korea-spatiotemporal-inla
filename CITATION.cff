@@ -4,10 +4,9 @@ title: "Analysis code for: Long-term spatiotemporal distribution and area-level 
 authors:
   - family-names: Lee
     given-names: Geonsang
-    orcid: "https://orcid.org/0009-0006-5105-6401"
     affiliation: "Hongik University"
-  - family-names: Kim
-    given-names: Seongdae
+  - family-names: Lee
+    given-names: MinSoo
     affiliation: "Hongik University"
 version: v1.0.0
 license: MIT

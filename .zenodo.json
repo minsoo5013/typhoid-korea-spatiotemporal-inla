@@ -5,11 +5,17 @@
   "creators": [
     {
       "name": "Lee, Geonsang",
-      "orcid": "0009-0006-5105-6401",
       "affiliation": "Hongik University"
     },
     {
+      "name": "Lee, MinSoo",
+      "affiliation": "Hongik University"
+    }
+  ],
+  "contributors": [
+    {
       "name": "Kim, Seongdae",
+      "type": "Supervisor",
       "affiliation": "Hongik University"
     }
   ],
